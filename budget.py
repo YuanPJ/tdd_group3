@@ -11,5 +11,7 @@ class BudgetService:
         pass
 
     def query(self, start, end):
+        if start > end:
+            return 0
         b = self.get_all_budgets()
-        return b[0].amount
+

@@ -1,7 +1,8 @@
 import unittest
 from datetime import date
 
-from .budget import BudgetService, Budget
+from budget import BudgetService
+
 
 
 class BudgetServiceTestCase(unittest.TestCase):
@@ -11,12 +12,9 @@ class BudgetServiceTestCase(unittest.TestCase):
     def my_budgets(self):
         return self.fake_budgets
 
-    def test_what(self):
-        self.b.get_all_budgets = self.my_budgets
-        self.fake_budgets = [Budget("202103", 31)]
-        a = self.b.query(date(2021, 3, 1), date(2021, 3, 1))
-        assert a == 31
-        pass
+    def test_invalid_start_end(self):
+        result = self.b.query(date(2021, 3, 3), date(2021, 3, 1))
+        self.assertEqual(0, result)
 
 if __name__ == "__main__":
     unittest.main()
