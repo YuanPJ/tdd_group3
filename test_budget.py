@@ -53,6 +53,12 @@ class BudgetServiceTestCase(unittest.TestCase):
         result = self.b.query(date(2021, 3, 30), date(2021, 6, 7))
         self.assertEqual(1702.0, result)
 
+    def test_multiply_day_in_cross_year(self):
+        self.fake_budgets = [Budget("202103",31), Budget("202104", 300), Budget("202204", 6000)]
+        self.b.get_all_budgets = self.my_budgets
+        result = self.b.query(date(2021, 3, 30), date(2022, 4, 7))
+        self.assertEqual(1702.0, result)
+
 
 if __name__ == "__main__":
     unittest.main()
